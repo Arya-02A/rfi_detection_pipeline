@@ -32,12 +32,12 @@ The accompanying project report describes the same overall pipeline: FITS loadin
 ## Project architecture
 
 ```text
-rfi-detection-analysis/
+rfi_detection_pipeline/
 ├── main.py                         # Main Streamlit dashboard
 ├── detection.py                    # Standalone robust RFI detector/demo
 ├── analysis.py                     # FITS structure and signal analysis helpers
 ├── dataset_builder.py              # Patch extraction, labeling and splitting
-├── model_training_and_vizuliazation.py
+├── model_training.py
 │                                   # Feature extraction, RF training, overlay map
 ├── dataset/
 │   ├── .gitkeep                    # Keep folder in Git; do not commit large raw FITS files
@@ -61,7 +61,7 @@ Python 3.10+ is recommended.
 
 ```bash
 git clone <YOUR_REPOSITORY_URL>
-cd rfi-detection-analysis
+cd rfi_detection_pipeline
 python -m venv .venv
 source .venv/bin/activate        # macOS/Linux
 # .venv\Scripts\activate       # Windows
@@ -72,7 +72,7 @@ pip install -r requirements.txt
 
 The application expects a GMRT FITS file containing a primary-HDU table with a `DATA` field compatible with the indexing used in the current code.
 
-Because radio-astronomy FITS datasets can be very large, **do not commit the full FITS dataset to GitHub**. Keep large observation files outside the repository and document their provenance, access instructions, and expected filename/path in `dataset/README.md`.
+Because radio-astronomy FITS datasets can be very large, Keep large observation files outside the repository and document their provenance, access instructions, and expected filename/path in `dataset/README.md`.
 
 For a reproducible public repository, add one of the following:
 
@@ -219,19 +219,6 @@ The binary MAD mask is a **detector/flagging mask**, not a scientific ground-tru
 
 The report itself lists fixed patch size, manual sigma tuning, lack of multi-telescope validation, and non-real-time operation as limitations.
 
-## Recommended Git workflow
-
-```bash
-git init
-git add .
-git commit -m "Initial release of GMRT RFI detection pipeline"
-git branch -M main
-git remote add origin <YOUR_REPOSITORY_URL>
-git push -u origin main
-```
-
-Before the first push, verify that the repository contains **no personal paths, credentials, API keys, private emails/phone numbers, large FITS files, generated caches, or unnecessary virtual-environment files**.
-
 ## Future work
 
 The project report proposes several extensions:
@@ -251,8 +238,5 @@ See [`docs/THEORY.md`](docs/THEORY.md) for the project theory, equations, pipeli
 
 ## Authors
 
+Arya Madiwale
 Developed as a student research project focused on AI, radio astronomy and interpretable scientific data analysis.
-
-## License
-
-Choose a license before publishing. For a student open-source project, **MIT** is a simple permissive choice, provided that all included code and data are yours to license and any third-party data/software terms are respected.
